@@ -1,0 +1,958 @@
+:root {
+  color-scheme: dark;
+  --ink: #090a0a;
+  --ink-soft: #111313;
+  --porcelain: #f2f1eb;
+  --porcelain-dim: #b8b8b0;
+  --line: rgba(242, 241, 235, 0.18);
+  --kiln: #d43627;
+  --kiln-deep: #731c16;
+  --signal: #9ee54d;
+  --page-pad: 5vw;
+  --content: 1240px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ink);
+}
+
+body {
+  margin: 0;
+  color: var(--porcelain);
+  background: var(--ink);
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+
+body::selection {
+  color: var(--ink);
+  background: var(--signal);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.reading-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--signal);
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 90;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 72px;
+  padding: 0 var(--page-pad);
+  border-bottom: 1px solid transparent;
+  transition: background 220ms ease, border-color 220ms ease;
+}
+
+.site-header.scrolled {
+  background: rgba(9, 10, 10, 0.94);
+  border-color: var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  color: var(--ink);
+  background: var(--porcelain);
+  font-family: "Songti SC", serif;
+  font-size: 18px;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 30px;
+  font-size: 13px;
+  color: var(--porcelain-dim);
+}
+
+.site-header nav a:hover {
+  color: var(--porcelain);
+}
+
+.episode {
+  justify-self: end;
+  font-size: 12px;
+  color: var(--porcelain-dim);
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #050606;
+  isolation: isolate;
+}
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.18);
+  content: "";
+  pointer-events: none;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #050606;
+}
+
+.hero-copy {
+  align-self: end;
+  width: min(570px, 90vw);
+  margin: 0 0 12vh var(--page-pad);
+  padding: 28px 0;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.85);
+}
+
+.eyebrow,
+.section-label {
+  margin: 0 0 14px;
+  color: var(--signal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: "Songti SC", "STSong", serif;
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 0.98;
+}
+
+.hero h1 span {
+  display: block;
+  margin-bottom: 12px;
+  font-family: "PingFang SC", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--porcelain-dim);
+}
+
+.hero-line {
+  margin: 20px 0 28px;
+  font-family: "Songti SC", serif;
+  font-size: 21px;
+}
+
+.primary-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid var(--porcelain);
+  border-radius: 2px;
+  font-size: 13px;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.primary-action:hover {
+  color: var(--ink);
+  background: var(--porcelain);
+}
+
+.hero-controls {
+  position: absolute;
+  right: var(--page-pad);
+  bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-controls button,
+.dialog-nav button,
+.dialog-close {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--porcelain);
+  background: rgba(9, 10, 10, 0.78);
+  cursor: pointer;
+}
+
+.hero-controls button:hover,
+.dialog-nav button:hover,
+.dialog-close:hover {
+  border-color: var(--porcelain);
+}
+
+.hero-controls span {
+  margin-left: 8px;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  color: var(--porcelain-dim);
+}
+
+.film-progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.film-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--kiln);
+}
+
+.scroll-cue {
+  position: absolute;
+  right: var(--page-pad);
+  top: 50%;
+  padding-left: 30px;
+  color: var(--porcelain-dim);
+  font-size: 11px;
+  transform: rotate(90deg) translateX(50%);
+  transform-origin: right top;
+}
+
+.scroll-cue::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.content-band {
+  padding: 110px max(var(--page-pad), calc((100vw - var(--content)) / 2));
+}
+
+.manifesto {
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 48px;
+  align-items: end;
+  color: var(--ink);
+  background: var(--porcelain);
+}
+
+.manifesto-index {
+  align-self: start;
+  color: var(--kiln);
+  font-family: "Songti SC", serif;
+  font-size: 64px;
+  line-height: 1;
+}
+
+.manifesto h2,
+.section-heading h2,
+.experiment h2,
+.rules h2,
+.doorbell-section h2 {
+  margin: 0;
+  font-family: "Songti SC", "STSong", serif;
+  font-size: 46px;
+  line-height: 1.28;
+}
+
+.manifesto-copy > p:last-child {
+  max-width: 760px;
+  margin: 28px 0 0;
+  color: #4d504e;
+  font-size: 16px;
+}
+
+.manifesto .section-label {
+  color: var(--kiln-deep);
+}
+
+.manifesto-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 0;
+  background: rgba(9, 10, 10, 0.16);
+}
+
+.manifesto-stats div {
+  padding: 18px 12px;
+  background: var(--porcelain);
+}
+
+.manifesto-stats dt {
+  color: var(--kiln-deep);
+  font-family: "Songti SC", serif;
+  font-size: 34px;
+}
+
+.manifesto-stats dd {
+  margin: 2px 0 0;
+  color: #626560;
+  font-size: 11px;
+}
+
+.frames-section {
+  background: var(--ink);
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.section-heading > p {
+  max-width: 360px;
+  margin: 0;
+  color: var(--porcelain-dim);
+  font-size: 14px;
+}
+
+.frame-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px 18px;
+}
+
+.frame-card {
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+}
+
+.frame-card figure {
+  margin: 0;
+}
+
+.frame-card-image {
+  position: relative;
+  aspect-ratio: 9 / 14;
+  overflow: hidden;
+  background: var(--ink-soft);
+}
+
+.frame-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms ease, filter 420ms ease;
+}
+
+.frame-card:hover img {
+  transform: scale(1.035);
+  filter: contrast(1.08);
+}
+
+.frame-card-number {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--ink);
+  background: var(--porcelain);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.frame-card figcaption {
+  padding: 13px 2px 0;
+}
+
+.frame-card strong {
+  display: block;
+  font-family: "Songti SC", serif;
+  font-size: 18px;
+}
+
+.frame-card p {
+  display: -webkit-box;
+  margin: 6px 0 0;
+  color: var(--porcelain-dim);
+  font-size: 12px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.experiment {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  gap: 70px;
+  align-items: center;
+  background: #161414;
+  border-block: 1px solid var(--line);
+}
+
+.experiment-stage {
+  position: relative;
+  min-height: 650px;
+  overflow: hidden;
+  background: #080909;
+}
+
+.experiment-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 100ms linear, filter 160ms linear, transform 160ms linear;
+}
+
+.experiment-after {
+  opacity: 0;
+}
+
+.experiment-stamp {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  padding: 8px 12px;
+  color: var(--ink);
+  background: var(--signal);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.crack-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: opacity 180ms ease;
+}
+
+.crack-lines::before,
+.crack-lines::after {
+  position: absolute;
+  left: 55%;
+  top: 12%;
+  width: 1px;
+  height: 76%;
+  background: rgba(242, 241, 235, 0.72);
+  box-shadow: 42px 36px 0 rgba(242, 241, 235, 0.38), -58px 92px 0 rgba(242, 241, 235, 0.45);
+  content: "";
+  transform: rotate(24deg);
+  transform-origin: center;
+}
+
+.crack-lines::after {
+  left: 32%;
+  top: 20%;
+  height: 58%;
+  opacity: 0.62;
+  transform: rotate(-38deg);
+}
+
+.experiment-controls > p:not(.section-label):not(.experiment-warning) {
+  max-width: 490px;
+  margin: 24px 0 36px;
+  color: var(--porcelain-dim);
+}
+
+.experiment-controls label {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--porcelain-dim);
+}
+
+.experiment-controls label strong {
+  justify-self: center;
+  color: var(--porcelain);
+  font-size: 20px;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 3px;
+  margin: 20px 0 10px;
+  accent-color: var(--kiln);
+  cursor: pointer;
+}
+
+.experiment-warning {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--kiln);
+  font-size: 11px;
+}
+
+.rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  background: var(--ink);
+}
+
+.rule-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.rule-list li {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 8px 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.rule-list span {
+  grid-row: 1 / 3;
+  color: var(--signal);
+  font-size: 12px;
+}
+
+.rule-list strong {
+  font-family: "Songti SC", serif;
+  font-size: 21px;
+}
+
+.rule-list p {
+  margin: 0;
+  color: var(--porcelain-dim);
+  font-size: 13px;
+}
+
+.doorbell-section {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 90svh;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.doorbell-section > img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doorbell-section::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.66);
+  content: "";
+}
+
+.doorbell-content {
+  width: min(720px, 90vw);
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.doorbell-content > p:not(.section-label) {
+  margin: 18px 0 30px;
+  color: var(--porcelain-dim);
+}
+
+.doorbell-button {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(158, 229, 77, 0.55);
+  border-radius: 50%;
+  color: var(--porcelain);
+  background: rgba(9, 10, 10, 0.86);
+  cursor: pointer;
+  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.doorbell-button:hover {
+  border-color: var(--signal);
+  background: rgba(18, 24, 13, 0.92);
+  transform: scale(1.03);
+}
+
+.doorbell-light {
+  position: absolute;
+  top: 24px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 18px var(--signal);
+}
+
+.ring-count {
+  display: block;
+  margin-top: 20px;
+  color: var(--porcelain-dim);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+}
+
+body.ringing .doorbell-section::after {
+  background: rgba(115, 28, 22, 0.3);
+}
+
+body.replaced {
+  --signal: #f2f1eb;
+}
+
+footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 90px;
+  padding: 0 var(--page-pad);
+  border-top: 1px solid var(--line);
+  color: var(--porcelain-dim);
+  background: var(--ink);
+  font-size: 11px;
+}
+
+footer a {
+  justify-self: end;
+  color: var(--porcelain);
+}
+
+.frame-dialog {
+  width: min(1080px, calc(100vw - 48px));
+  max-width: none;
+  height: min(760px, calc(100svh - 48px));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--porcelain);
+  background: var(--ink-soft);
+  overflow: hidden;
+}
+
+.frame-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.88);
+}
+
+.frame-dialog[open] {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.dialog-close {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 2;
+}
+
+.dialog-media {
+  min-height: 0;
+  background: #050606;
+}
+
+.dialog-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dialog-copy {
+  align-self: end;
+  padding: 50px 36px;
+}
+
+.dialog-copy > span {
+  color: var(--signal);
+  font-size: 11px;
+}
+
+.dialog-copy h2 {
+  margin: 12px 0 18px;
+  font-family: "Songti SC", serif;
+  font-size: 36px;
+}
+
+.dialog-copy p {
+  margin: 0 0 32px;
+  color: var(--porcelain-dim);
+  font-size: 14px;
+}
+
+.dialog-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 980px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .site-header nav {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 64px;
+  }
+
+  .manifesto {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .manifesto-stats {
+    grid-column: 2;
+  }
+
+  .frame-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .experiment {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .experiment-stage {
+    min-height: 560px;
+  }
+
+  .rules {
+    gap: 48px;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --page-pad: 20px;
+  }
+
+  .site-header {
+    min-height: 60px;
+  }
+
+  .episode {
+    font-size: 10px;
+  }
+
+  .hero-video {
+    object-fit: cover;
+  }
+
+  .hero::after {
+    background: rgba(0, 0, 0, 0.38);
+  }
+
+  .hero-copy {
+    width: auto;
+    margin: 0 var(--page-pad) 16vh;
+    padding: 22px 0;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+  }
+
+  .hero-line {
+    font-size: 17px;
+  }
+
+  .hero-controls {
+    left: var(--page-pad);
+    right: auto;
+    bottom: 26px;
+  }
+
+  .hero-controls span {
+    display: none;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+
+  .content-band {
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .manifesto {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .manifesto-index {
+    font-size: 44px;
+  }
+
+  .manifesto-stats {
+    grid-column: auto;
+  }
+
+  .manifesto h2,
+  .section-heading h2,
+  .experiment h2,
+  .rules h2,
+  .doorbell-section h2 {
+    font-size: 34px;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading > p {
+    margin-top: 18px;
+  }
+
+  .frame-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 12px;
+  }
+
+  .frame-card strong {
+    font-size: 16px;
+  }
+
+  .experiment {
+    grid-template-columns: 1fr;
+  }
+
+  .experiment-stage {
+    min-height: 600px;
+  }
+
+  .rules {
+    grid-template-columns: 1fr;
+  }
+
+  .doorbell-section {
+    min-height: 80svh;
+  }
+
+  .frame-dialog {
+    width: calc(100vw - 24px);
+    height: calc(100svh - 24px);
+  }
+
+  .frame-dialog[open] {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .dialog-copy {
+    padding: 24px 20px;
+  }
+
+  .dialog-copy h2 {
+    font-size: 27px;
+  }
+
+  .dialog-copy p {
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+
+  footer {
+    grid-template-columns: 1fr auto;
+  }
+
+  footer span:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
