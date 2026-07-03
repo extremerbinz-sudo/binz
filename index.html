@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090a0a" />
+    <meta
+      name="description"
+      content="《门铃之回窑》沉浸式AI恐怖短片档案。你以为这里在修复人，其实这里在替换人。"
+    />
+    <title>门铃之回窑｜沉浸式影片档案</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="reading-progress" aria-hidden="true"><span id="readingProgress"></span></div>
+
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark">回</span>
+        <span>门铃宇宙</span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#film">影片</a>
+        <a href="#frames">十二幕</a>
+        <a href="#experiment">回窑测试</a>
+      </nav>
+      <span class="episode">档案 02 / 回窑</span>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="film" aria-labelledby="heroTitle">
+        <video
+          id="heroVideo"
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="assets/poster.jpg"
+        >
+          <source src="assets/huoyao.mp4" type="video/mp4" />
+        </video>
+
+        <div class="hero-copy">
+          <p class="eyebrow">AI 恐怖短片 · 景德镇档案</p>
+          <h1 id="heroTitle"><span>门铃之</span>回窑</h1>
+          <p class="hero-line">完整的人，不一定还是人。</p>
+          <a class="primary-action" href="#frames">进入窑门</a>
+        </div>
+
+        <div class="hero-controls" aria-label="影片控制">
+          <button id="playToggle" type="button">暂停</button>
+          <button id="soundToggle" type="button">开启声音</button>
+          <span id="videoTime">00:00 / 00:45</span>
+        </div>
+
+        <div class="film-progress" aria-hidden="true"><span id="filmProgress"></span></div>
+        <a class="scroll-cue" href="#manifesto">向下查看档案</a>
+      </section>
+
+      <section class="manifesto content-band" id="manifesto">
+        <div class="manifesto-index" aria-hidden="true">01</div>
+        <div class="manifesto-copy reveal">
+          <p class="section-label">异常现象记录</p>
+          <h2>窑门打开时，里面不是火。<br />是你小时候的家。</h2>
+          <p>
+            来到景德镇的人，都说自己想重新开始。进去前，他们破碎、疲惫、哭泣；出来后，他们变得完整、温柔、安静。只是皮肤上多了一道瓷裂。
+          </p>
+        </div>
+        <dl class="manifesto-stats reveal">
+          <div><dt>45</dt><dd>秒影像记录</dd></div>
+          <div><dt>12</dt><dd>个关键定帧</dd></div>
+          <div><dt>01</dt><dd>次身份替换</dd></div>
+        </dl>
+      </section>
+
+      <section class="frames-section content-band" id="frames" aria-labelledby="framesTitle">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-label">回窑过程</p>
+            <h2 id="framesTitle">十二幕影像档案</h2>
+          </div>
+          <p>点击任意画面，查看它被烧成“完整”之前的最后一刻。</p>
+        </div>
+        <div class="frame-grid" id="frameGrid"></div>
+      </section>
+
+      <section class="experiment content-band" id="experiment" aria-labelledby="experimentTitle">
+        <div class="experiment-stage reveal" aria-live="polite">
+          <img class="experiment-image experiment-before" id="experimentBefore" src="assets/frame-01.jpg" alt="回窑之前" />
+          <img class="experiment-image experiment-after" id="experimentAfter" src="assets/frame-12.jpg" alt="回窑之后" />
+          <div class="crack-lines" aria-hidden="true"></div>
+          <span class="experiment-stamp" id="experimentStamp">原始状态</span>
+        </div>
+        <div class="experiment-controls reveal">
+          <p class="section-label">回窑测试</p>
+          <h2 id="experimentTitle">你想被修复到什么程度？</h2>
+          <p id="experimentMessage">尚未入窑。你还保留着所有不完整。</p>
+          <label for="kilnRange">
+            <span>破碎</span>
+            <strong id="kilnValue">0%</strong>
+            <span>完整</span>
+          </label>
+          <input id="kilnRange" type="range" min="0" max="100" value="0" />
+          <p class="experiment-warning">警告：完整度超过 80%，原始身份可能无法恢复。</p>
+        </div>
+      </section>
+
+      <section class="rules content-band" aria-labelledby="rulesTitle">
+        <div class="rules-heading reveal">
+          <p class="section-label">城市级异常</p>
+          <h2 id="rulesTitle">回窑并不修复人。<br />它只制造一个更适合留下的人。</h2>
+        </div>
+        <ol class="rule-list">
+          <li class="reveal">
+            <span>第一声</span>
+            <strong>所有窑门亮起红光</strong>
+            <p>雨停了，城市里的白瓷开始转头。</p>
+          </li>
+          <li class="reveal">
+            <span>第二声</span>
+            <strong>你会看见不存在的家</strong>
+            <p>桌上有热饭，有旧电视，也有另一个你。</p>
+          </li>
+          <li class="reveal">
+            <span>第三声</span>
+            <strong>全城开始重新烧制</strong>
+            <p>道路裂开，窑火穿过街区，所有人逐渐完整。</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="doorbell-section" id="doorbell" aria-labelledby="doorbellTitle">
+        <img src="assets/frame-11.jpg" alt="窑门深处" />
+        <div class="doorbell-content reveal">
+          <p class="section-label">最后一项测试</p>
+          <h2 id="doorbellTitle">门铃已经响过两次。</h2>
+          <p id="doorbellMessage">不要按第三次。</p>
+          <button class="doorbell-button" id="doorbellButton" type="button">
+            <span class="doorbell-light" aria-hidden="true"></span>
+            按下门铃
+          </button>
+          <span class="ring-count" id="ringCount">响铃次数 02 / 03</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>《门铃之回窑》</span>
+      <span>AI 影像实验 · 2026</span>
+      <a href="#top">返回顶部</a>
+    </footer>
+
+    <dialog class="frame-dialog" id="frameDialog" aria-labelledby="dialogTitle">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="关闭">关闭</button>
+      <div class="dialog-media"><img id="dialogImage" src="assets/frame-01.jpg" alt="" /></div>
+      <div class="dialog-copy">
+        <span id="dialogIndex">01 / 12</span>
+        <h2 id="dialogTitle">夜雨抵达</h2>
+        <p id="dialogDescription"></p>
+        <div class="dialog-nav">
+          <button id="dialogPrev" type="button">上一幕</button>
+          <button id="dialogNext" type="button">下一幕</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
